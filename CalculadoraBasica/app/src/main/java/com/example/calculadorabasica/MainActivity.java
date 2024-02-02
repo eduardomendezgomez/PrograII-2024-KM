@@ -55,7 +55,12 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 6:
                         /*factorial*/
-
+                            int cont = 1;
+                            int fact = 1;
+                            while (cont<=num2) {
+                                fact = fact* cont;
+                            }
+                            respuesta = fact;
                         break;
                     case 7:
                         /*raiz*/
