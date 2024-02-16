@@ -1,13 +1,13 @@
 <resources>
-    <string name="app_name">Calculadora Basica</string>
-    <string-array name="spnopciones">
-        <item>Suma</item>
-        <item>Resta</item>
-        <item>Multiplicación</item>
-        <item>División</item>
-        <item>Porcentaje</item>
-        <item>Exponenciación</item>
-        <item>Factorial</item>
-        <item>Raiz</item>
+    <string name="app_name">Conversores</string>
+    <string-array name="spnLongitud">
+        <item>Metros</item>
+        <item>Cm</item>
+        <item>Pulgada</item>
+        <item>Pie</item>
+        <item>Vara</item>
+        <item>Yarda</item>
+        <item>Km</item>
+        <item>Milla</item>
     </string-array>
 </resources>
