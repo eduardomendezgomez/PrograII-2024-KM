@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -128,7 +128,7 @@
                         android:layout_height="wrap_content"/>
                 </RelativeLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:id="@+id/tabMonedas"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -177,8 +177,8 @@
                         android:text="Convertir"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <LinearLayout
+                </RelativeLayout>
+                <RelativeLayout
                     android:id="@+id/tabMasa"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -227,8 +227,8 @@
                         android:text="Convertir"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <LinearLayout
+                </RelativeLayout>
+                <RelativeLayout
                     android:id="@+id/tabVolumen"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -277,8 +277,8 @@
                         android:text="Convertir"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <LinearLayout
+                </RelativeLayout>
+                <RelativeLayout
                     android:id="@+id/tabTiempo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -327,8 +327,8 @@
                         android:text="Convertir"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <LinearLayout
+                </RelativeLayout>
+                <RelativeLayout
                     android:id="@+id/tabTransferenciaDeDatos"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -377,8 +377,8 @@
                         android:text="Convertir"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
-                </LinearLayout>
+                </RelativeLayout>
             </FrameLayout>
-        </LinearLayout>
+        </RelativeLayout>
     </TabHost>
 </RelativeLayout>
