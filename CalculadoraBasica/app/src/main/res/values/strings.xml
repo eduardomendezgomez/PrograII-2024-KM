@@ -12,8 +12,8 @@
     </string-array>
 
     <string-array name="spnAlmacenamiento">
-        <item>Bit(b)</item>
         <item>Byte(B)</item>
+        <item>Bit(b)</item>
         <item>kilobyte(KB)</item>
         <item>Megabyte(MB)</item>
         <item>Gigabyte(GB)</item>
