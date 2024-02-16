@@ -58,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
                             int cont = 1;
                             int fact = 1;
                             while (cont<=num2) {
-                                fact = fact* cont;
+                                fact = fact * cont;
+                                cont++;
                             }
                             respuesta = fact;
                         break;
