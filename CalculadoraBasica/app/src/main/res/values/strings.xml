@@ -36,8 +36,8 @@
         <item>Yen japonés</item>
     </string-array>
     <string-array name="spnMasa">
-        <item>Gramo(g)</item>
         <item>Kilogramo(kg)</item>
+        <item>Gramo(g)</item>
         <item>Libra(lb)</item>
         <item>Onzas(oz)</item>
         <item>Miligramo(mg)</item>
