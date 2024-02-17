@@ -29,10 +29,10 @@ public class MainActivity extends AppCompatActivity {
         tbh.addTab(tbh.newTabSpec("LOM").setContent(id.tabLongitud).setIndicator("LONGITUD",null));
         tbh.addTab(tbh.newTabSpec("ALM").setContent(id.tabAlmacenamiento).setIndicator("ALMACENAMIENTO",null));
         tbh.addTab(tbh.newTabSpec("MON").setContent(id.tabMonedas).setIndicator("MONEDAS",null));
-        tbh.addTab(tbh.newTabSpec("MON").setContent(id.tabVolumen).setIndicator("VOLUMEN",null));
-        tbh.addTab(tbh.newTabSpec("MON").setContent(id.tabTransferenciaDeDatos).setIndicator("TRANS. DE DATOS",null));
-        tbh.addTab(tbh.newTabSpec("MON").setContent(id.tabTiempo).setIndicator("TIEMPO",null));
-        tbh.addTab(tbh.newTabSpec("MON").setContent(id.tabMasa).setIndicator("MASA",null));
+        tbh.addTab(tbh.newTabSpec("VOL").setContent(id.tabVolumen).setIndicator("VOLUMEN",null));
+        tbh.addTab(tbh.newTabSpec("DAT").setContent(id.tabTransferenciaDeDatos).setIndicator("TRANS. DE DATOS",null));
+        tbh.addTab(tbh.newTabSpec("TEM").setContent(id.tabTiempo).setIndicator("TIEMPO",null));
+        tbh.addTab(tbh.newTabSpec("MAS").setContent(id.tabMasa).setIndicator("MASA",null));
 
         btn = findViewById(id.btnConvertirLongitud);
         btn.setOnClickListener(new View.OnClickListener() {
