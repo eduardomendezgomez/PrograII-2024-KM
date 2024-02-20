@@ -5,6 +5,7 @@ import static com.example.calculadorabasica.R.*;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -26,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_main);
-        tempVal = findViewById(id.lblSensorAcelerometro);
-        activarSensorAcelerometro();
+        tempVal = findViewById(id.lblSensorLuz);
+        activarSensorLuz();
     }
 
     @Override
@@ -42,17 +43,25 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    private void activarSensorAcelerometro(){
+    private void activarSensorLuz(){
         sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
-        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         if(sensor ==null){
-            tempVal.setText("Tu dispositivo NO tiene el sensor del acelerometro");
+            tempVal.setText("Tu dispositivo NO tiene el sensor de luz");
             finish();
         }
         sensorEventListener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent sensorEvent) {
-                tempVal.setText("Acelerometro: X="+ sensorEvent.values[0] + "; Y="+sensorEvent.values[1]+ "; Z="+sensorEvent.values[2]);
+               double valor = sensorEvent.values[0];
+               tempVal.setText("Luz: "+valor);
+               if(valor<=20){
+                   getWindow().getDecorView().setBackgroundColor(Color.BLUE);
+               }else if (valor <=50){
+                   getWindow().getDecorView().setBackgroundColor(Color.RED);
+               }else {
+                   getWindow().getDecorView().setBackgroundColor(Color.YELLOW);
+               }
             }
 
             @Override
