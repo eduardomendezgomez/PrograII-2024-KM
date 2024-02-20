@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         if(sensor ==null){
-            tempVal.setText("Tu dispositivo NO tiene el sensor de luz");
+            tempVal.setText("Tu dispositivo NO POSEE el sensor de luz");
             finish();
         }
         sensorEventListener = new SensorEventListener() {
