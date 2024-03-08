@@ -5,63 +5,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-<TextView
-    android:id="@+id/lblnum1"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Num: 1:"
-    android:layout_marginLeft="20dp"
-    android:layout_marginTop="40dp"
- />
-    <TextView
-        android:id="@+id/lblnum2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtnum1"
-        android:text="Num: 2:"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="25dp"
-        />
     <EditText
-        android:id="@+id/txtnum1"
-        android:inputType="numberDecimal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/lblnum1"
-        android:layout_marginTop="-30dp"
-        android:layout_marginLeft="80dp"
-        />
-    <EditText
-        android:id="@+id/txtnum2"
-        android:inputType="numberDecimal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtnum1"
+        android:id="@+id/txtCodigo"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="80dp"
-        />
-    <Spinner
-        android:id="@+id/spnOpciones"
-        android:entries="@array/spnopciones"
+        android:hint="Ingrese el codigo del producto"
         android:layout_width="match_parent"
-        android:layout_below="@id/lblnum2"
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="20dp"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/txtDescripcion"
+        android:layout_below="@+id/txtCodigo"
+        android:layout_marginTop="20dp"
+        android:inputType="textImeMultiLine"
+        android:hint="Ingrese la descripción del producto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/txtMarca"
+        android:layout_below="@+id/txtDescripcion"
+        android:layout_marginTop="20dp"
+        android:hint="Ingrese la marca del producto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/txtPresentacion"
+        android:layout_below="@+id/txtMarca"
+        android:layout_marginTop="20dp"
+        android:hint="Ingrese la presentación del producto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/txtPrecio"
+        android:layout_below="@+id/txtPresentacion"
+        android:inputType="numberDecimal"
+        android:layout_marginTop="20dp"
+        android:hint="Ingrese el precio del producto"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <Button
-        android:id="@+id/btnCalcular"
+        android:id="@+id/btnGuardarProducto"
+        android:text="Guardar producto"
+        android:layout_below="@id/txtPrecio"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_below="@+id/spnOpciones"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Calcular"/>
-    <TextView
-        android:id="@+id/lblrespuesta"
+        android:layout_height="wrap_content"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabListaAmigos"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20dp"
         android:layout_width="wrap_content"
-        android:layout_below="@+id/btnCalcular"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="20dp"
         android:layout_height="wrap_content"
-        android:text="respuesta: ?"
-        />
+        android:clickable="true"
+        app:srcCompat="@android:drawable/ic_menu_revert" />
+
 </RelativeLayout>
