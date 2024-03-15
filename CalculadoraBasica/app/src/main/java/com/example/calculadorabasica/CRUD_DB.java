@@ -29,11 +29,11 @@ public class CRUD_DB extends SQLiteOpenHelper {
         try{
             SQLiteDatabase db = getWritableDatabase();
             String sql = "";
-            if (accion =="nuevo"){
+            if (accion.equals("nuevo")){
                 sql = "INSERT INTO tienda(foto,codigo, descripcion,marca,presentacion,precio) VALUES('"+datos[1]+"','"+datos[2]+"','"+datos[3]+"','"+datos[4]+"','"+datos[5]+"','"+datos[6]+"')";
-            }else if (accion == "modificar"){
+            }else if (accion.equals("modificar")){
                 sql = "UPDATE tienda SET foto='"+datos[1]+"',codigo='"+datos[2]+"', descripcion='"+datos[3]+"',marca='"+datos[4]+"',presentacion='"+datos[5]+"',precio='"+datos[6]+"'";
-            } else if (accion == "eliminar") {
+            } else if (accion.equals("eliminar")) {
                 sql = "DELETE FROM tiendas WHERE idTienda='"+datos[0]+"'";
             }
             db.execSQL(sql);

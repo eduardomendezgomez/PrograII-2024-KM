@@ -5,9 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
+    <ImageButton
+        android:id="@+id/btnImgProducto"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="139dp"
+        android:layout_marginEnd="122dp"
+        android:scaleType="centerCrop"
+        android:src="@android:drawable/ic_menu_camera" />
+
     <EditText
         android:id="@+id/txtCodigo"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/btnImgProducto"
         android:hint="Ingrese el codigo del producto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
