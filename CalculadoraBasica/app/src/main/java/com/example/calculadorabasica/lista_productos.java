@@ -8,6 +8,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -44,7 +47,7 @@ public class lista_productos extends AppCompatActivity {
             }
         });
         obtenerDatosProductos();
-        buscarAmigos();
+        buscarProductos();
     }
 
     @Override
@@ -55,7 +58,7 @@ public class lista_productos extends AppCompatActivity {
 
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
         cproductos.moveToPosition(info.position);
-        menu.setHeaderTitle(cproductos.getString(2))//codigo
+        menu.setHeaderTitle(cproductos.getString(2));//codigo
     }
 
     @Override
@@ -67,7 +70,7 @@ public class lista_productos extends AppCompatActivity {
                     abrirActividad(parametros);
                     break;
                 case R.id.mnxModificar:
-                    String[]productos = {
+                    String[] productos = {
                             cproductos.getString(0),
                             cproductos.getString(1),
                             cproductos.getString(2),
@@ -86,7 +89,7 @@ public class lista_productos extends AppCompatActivity {
             }
             return true;
         }catch (Exception e){
-            mostrarMsg("Error alseleccionar una opcion del menu: "e.getMessage());
+            mostrarMsg("Error alseleccionar una opcion del menu: "+e.getMessage());
             return super.onContextItemSelected(item);
         }
     }
@@ -94,7 +97,7 @@ public class lista_productos extends AppCompatActivity {
         try {
             AlertDialog.Builder confirmar = new AlertDialog.Builder(lista_productos.this);
             confirmar.setTitle("Estas seguro de eliminar a: ");
-            confirmar.setMessage(cproductos.getString(2))//codigo
+            confirmar.setMessage(cproductos.getString(2));//codigo
             confirmar.setPositiveButton("SI", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -106,7 +109,85 @@ public class lista_productos extends AppCompatActivity {
                         mostrarMsg("Error al eliminar el producto"+respuesta);
                     }
                 }
-            })
+            });
+            confirmar.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            confirmar.create().show();
+        }catch (Exception e){
+            mostrarMsg("Error al eliminar: "+ e.getMessage());
+        }
+    }
+    private void buscarProductos(){
+        TextView tempVal = findViewById(R.id.txtBuscarProducto);
+        tempVal.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                try {
+                    alProductos.clear();
+                    String valor= tempVal.getText().toString().trim().toLowerCase();
+                    if (valor.length()<=0){
+                        alProductos.addAll(alProductosCopy);
+                    }else {
+                        for (productos producto: alProductosCopy){
+                            String codigo= producto.getCodigo();
+                            String presentacion = producto.getPresentacion();
+                            String descripcion = producto.getDescripcion();
+                            String marca = producto.getMarca();
+                            String precio = producto.getPrecio();
+                            if (presentacion.trim().toLowerCase().contains(valor) || codigo.trim().toLowerCase().contains(valor) || descripcion.trim().toLowerCase().contains(valor) || marca.trim().toLowerCase().contains(valor) || precio.trim().toLowerCase().contains(valor)) {
+                                alProductos.add(producto);
+                            }
+                        }
+                        adaptadorImagenes adaptadorImagenes = new adaptadorImagenes(getApplicationContext(),alProductos);
+                        lts.setAdapter(adaptadorImagenes);
+                    }
+                }catch (Exception e){
+                    mostrarMsg("Error al buscar: "+e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+    private void obtenerDatosProductos(){
+        alProductos.clear();
+        alProductosCopy.clear();
+        if (cproductos.moveToFirst()){
+            lts.findViewById(R.id.ltsProductos);
+            do {
+                misproductos = productos (
+                        cproductos.getString(0),
+                        cproductos.getString(1),
+                        cproductos.getString(2),
+                        cproductos.getString(3),
+                        cproductos.getString(4),
+                        cproductos.getString(5),
+                        cproductos.getString(6)
+                );
+                alProductos.add(misproductos);
+            }while (cproductos.moveToNext());
+            alProductosCopy.addAll(alProductos);
+            adaptadorImagenes adaptadorImagenes = new adaptadorImagenes(getApplicationContext(),alProductos);
+            lts.setAdapter(adaptadorImagenes);
+
+            registerForContextMenu(lts);
+        }else {
+            parametros.putString("accion","nuevo");
+            abrirActividad(parametros);
+            mostrarMsg("No hay datos de productos");
         }
     }
 
