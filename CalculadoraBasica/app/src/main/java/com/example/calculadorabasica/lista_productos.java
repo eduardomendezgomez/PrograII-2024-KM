@@ -62,38 +62,39 @@ public class lista_productos extends AppCompatActivity {
     }
 
     @Override
-    public boolean onContextItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected( MenuItem item) {
         try {
-            switch (item.getItemId()){
-                case R.id.mnxAgregar:
-                    parametros.putString("accion","nuevo");
-                    abrirActividad(parametros);
-                    break;
-                case R.id.mnxModificar:
-                    String[] productos = {
-                            cproductos.getString(0),
-                            cproductos.getString(1),
-                            cproductos.getString(2),
-                            cproductos.getString(3),
-                            cproductos.getString(4),
-                            cproductos.getString(5),
-                            cproductos.getString(6),
-                    };
-                    parametros.putString("accion","modificar");
-                    parametros.putStringArray("productos",productos);
-                    abrirActividad(parametros);
-                    break;
-                case R.id.mnxEliminar:
-                    eliminarProductos();
-                    break;
+            int id = item.getItemId();
+
+            if (id == R.id.mnxAgregar) {
+                parametros.putString("accion", "nuevo");
+                abrirActividad(parametros);
+            } else if (id == R.id.mnxModificar) {
+                String[] productos = {
+                        cproductos.getString(0),
+                        cproductos.getString(1),
+                        cproductos.getString(2),
+                        cproductos.getString(3),
+                        cproductos.getString(4),
+                        cproductos.getString(5),
+                        cproductos.getString(6),
+                };
+
+
+                parametros.putString("accion", "modificar");
+                parametros.putStringArray("productos", productos);
+                abrirActividad(parametros);
+            } else if (id == R.id.mnxEliminar) {
+                eliminarProductos();
+
             }
-            return true;
+
         }catch (Exception e){
             mostrarMsg("Error alseleccionar una opcion del menu: "+e.getMessage());
-            return super.onContextItemSelected(item);
         }
+        return super.onOptionsItemSelected(item);
     }
-    private void    eliminarProductos(){
+    private void eliminarProductos(){
         try {
             AlertDialog.Builder confirmar = new AlertDialog.Builder(lista_productos.this);
             confirmar.setTitle("Estas seguro de eliminar a: ");
@@ -138,7 +139,7 @@ public class lista_productos extends AppCompatActivity {
                         alProductos.addAll(alProductosCopy);
                     }else {
                         for (productos producto: alProductosCopy){
-                            String codigo= producto.getCodigo();
+                            String codigo = producto.getCodigo();
                             String presentacion = producto.getPresentacion();
                             String descripcion = producto.getDescripcion();
                             String marca = producto.getMarca();
@@ -163,31 +164,37 @@ public class lista_productos extends AppCompatActivity {
         });
     }
     private void obtenerDatosProductos(){
-        alProductos.clear();
-        alProductosCopy.clear();
-        if (cproductos.moveToFirst()){
-            lts.findViewById(R.id.ltsProductos);
-            do {
-                misproductos = productos (
-                        cproductos.getString(0),
-                        cproductos.getString(1),
-                        cproductos.getString(2),
-                        cproductos.getString(3),
-                        cproductos.getString(4),
-                        cproductos.getString(5),
-                        cproductos.getString(6)
-                );
-                alProductos.add(misproductos);
-            }while (cproductos.moveToNext());
-            alProductosCopy.addAll(alProductos);
-            adaptadorImagenes adaptadorImagenes = new adaptadorImagenes(getApplicationContext(),alProductos);
-            lts.setAdapter(adaptadorImagenes);
+        try {
+            alProductos.clear();
+            alProductosCopy.clear();
+            db = new CRUD_DB(getApplicationContext(), "", null, 1);
+            cproductos = db.consultar_producto();
+            if (cproductos.moveToFirst()) {
+                lts.findViewById(R.id.ltsProductos);
+                do {
+                    misproductos = new productos(
+                            cproductos.getString(0),
+                            cproductos.getString(1),
+                            cproductos.getString(2),
+                            cproductos.getString(3),
+                            cproductos.getString(4),
+                            cproductos.getString(5),
+                            cproductos.getString(6)
+                    );
+                    alProductos.add(misproductos);
+                } while (cproductos.moveToNext());
+                alProductosCopy.addAll(alProductos);
+                adaptadorImagenes adaptadorImagenes = new adaptadorImagenes(getApplicationContext(), alProductos);
+                lts.setAdapter(adaptadorImagenes);
 
-            registerForContextMenu(lts);
-        }else {
-            parametros.putString("accion","nuevo");
-            abrirActividad(parametros);
-            mostrarMsg("No hay datos de productos");
+                registerForContextMenu(lts);
+            } else {
+                parametros.putString("accion", "nuevo");
+                abrirActividad(parametros);
+                mostrarMsg("No hay datos de productos");
+            }
+        }catch (Exception e){
+            mostrarMsg("Error al obtener los productos"+e.getMessage());
         }
     }
 

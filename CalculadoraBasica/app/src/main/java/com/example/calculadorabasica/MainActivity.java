@@ -26,6 +26,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.io.File;
 
+import android.net.Uri;
+
 public class MainActivity extends AppCompatActivity {
     TextView tempVal;
     Button btn;
@@ -68,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 String[] datos = new String[]{idt,urlCompletaFoto,codigo,descripcion,marca,presentacion,precio};
+                mostrarMsg(accion);
                 CRUD_DB db = new CRUD_DB(getApplicationContext(),"",null,1);
                 String respuesta = db.administrarTienda(accion,datos);
                 if (respuesta.equals("ok")){
@@ -94,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
             fotoProducto = crearImagenProducto();
             if(fotoProducto!=null){
                 Uri uriFotoAmigo = FileProvider.getUriForFile(MainActivity.this,"com.example.calculadorabasica.fileprovider",fotoProducto);
-                tomarFotoIntent.putExtras(MediaStore.EXTRA_OUTPUT,uriFotoAmigo);
+                tomarFotoIntent.putExtra(MediaStore.EXTRA_OUTPUT,uriFotoAmigo);
                startActivityForResult(tomarFotoIntent,1);
             }else{
                 mostrarMsg("No se pudo tomar la foto");

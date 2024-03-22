@@ -44,7 +44,7 @@ public class CRUD_DB extends SQLiteOpenHelper {
     }
     public Cursor consultar_producto(){
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT FROM tienda ORDER BY idTienda",null);
+        Cursor cursor = db.rawQuery("SELECT * FROM tienda ORDER BY idTienda",null);
         return cursor;
     }
 }
