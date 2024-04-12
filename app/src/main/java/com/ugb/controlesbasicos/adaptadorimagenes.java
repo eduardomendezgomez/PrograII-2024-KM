@@ -41,14 +41,20 @@ public class adaptadorimagenes extends BaseAdapter {
         try{
             datosAmigos = datosAmigosArrayList.get(i);
 
-            TextView tempVal = itemView.findViewById(R.id.lblnombre);
+            TextView tempVal = itemView.findViewById(R.id.lblcodigo);
             tempVal.setText(datosAmigos.getCodigo());
 
-            tempVal = itemView.findViewById(R.id.lbltelefono);
+            tempVal = itemView.findViewById(R.id.lbldescripcion);
             tempVal.setText(datosAmigos.getDescripcion());
 
-            tempVal = itemView.findViewById(R.id.lblemail);
+            tempVal = itemView.findViewById(R.id.lblprecio);
             tempVal.setText(datosAmigos.getPrecio());
+
+            tempVal = itemView.findViewById(R.id.lblpresentacion);
+            tempVal.setText(datosAmigos.getPresentacion());
+
+            tempVal = itemView.findViewById(R.id.lblmarca);
+            tempVal.setText(datosAmigos.getMarca());
 
             Bitmap imageBitmap = BitmapFactory.decodeFile(datosAmigos.getUrlFotoProdu());
             ImageView img = itemView.findViewById(R.id.imgFoto);
