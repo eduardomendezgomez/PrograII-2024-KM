@@ -197,14 +197,14 @@ public class lista_amigos extends AppCompatActivity {
                         alAmigos.addAll(alAmigosCopy);
                     }else{
                         for (amigos amigo : alAmigosCopy){
-                            String codigo = amigo.getNombre();
-                            String direccion = amigo.getDireccion();
-                            String tel = amigo.getTelefono();
-                            String email = amigo.getEmail();
-                            if( nombre.trim().toLowerCase().contains(valor) ||
-                                    direccion.trim().toLowerCase().contains(valor) ||
-                                    tel.trim().contains(valor) ||
-                                    email.trim().toLowerCase().contains(valor)){
+                            String codigo = amigo.getCodigo();
+                            String descripcion = amigo.getDescripcion();
+                            String marca = amigo.getMarca();
+                            String presentacion = amigo.getPresentacion();
+                            if( codigo.trim().toLowerCase().contains(valor) ||
+                                    descripcion.trim().toLowerCase().contains(valor) ||
+                                    marca.trim().contains(valor) ||
+                                    presentacion.trim().toLowerCase().contains(valor)){
                                 alAmigos.add(amigo);
                             }
                         }
@@ -237,12 +237,12 @@ public class lista_amigos extends AppCompatActivity {
 
                     jsonObject.put("_id", cAmigos.getString(0));
                     jsonObject.put("_rev", cAmigos.getString(1));
-                    jsonObject.put("idAmigo", cAmigos.getString(2));
-                    jsonObject.put("nombre", cAmigos.getString(3));
-                    jsonObject.put("direccion", cAmigos.getString(4));
-                    jsonObject.put("telefono", cAmigos.getString(5));
-                    jsonObject.put("email", cAmigos.getString(6));
-                    jsonObject.put("dui", cAmigos.getString(7));
+                    jsonObject.put("idProducto", cAmigos.getString(2));
+                    jsonObject.put("codigo", cAmigos.getString(3));
+                    jsonObject.put("descripcion", cAmigos.getString(4));
+                    jsonObject.put("marca", cAmigos.getString(5));
+                    jsonObject.put("presentacion", cAmigos.getString(6));
+                    jsonObject.put("precio", cAmigos.getString(7));
                     jsonObject.put("urlCompletaFoto", cAmigos.getString(8));
                     jsonObjectValue.put("value", jsonObject);
 
@@ -253,10 +253,10 @@ public class lista_amigos extends AppCompatActivity {
             }else {
                 paramatros.putString("accion", "nuevo");
                 abrirActividad(paramatros);
-                mostrarMsg("No hay Datos de amigos.");
+                mostrarMsg("No hay Datos de productos.");
             }
         }catch (Exception e){
-            mostrarMsg("Error al obtener los amigos : "+ e.getMessage());
+            mostrarMsg("Error al obtener los productos : "+ e.getMessage());
         }
     }
     private void mostrarMsg(String msg){
