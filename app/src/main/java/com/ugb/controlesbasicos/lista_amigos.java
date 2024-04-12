@@ -90,12 +90,12 @@ public class lista_amigos extends AppCompatActivity {
                     datosAmigos = new amigos(
                             misDatosJSONObject.getString("_id"),
                             misDatosJSONObject.getString("_rev"),
-                            misDatosJSONObject.getString("idAmigo"),
-                            misDatosJSONObject.getString("nombre"),
-                            misDatosJSONObject.getString("direccion"),
-                            misDatosJSONObject.getString("telefono"),
-                            misDatosJSONObject.getString("email"),
-                            misDatosJSONObject.getString("dui"),
+                            misDatosJSONObject.getString("idProducto"),
+                            misDatosJSONObject.getString("codigo"),
+                            misDatosJSONObject.getString("descripcion"),
+                            misDatosJSONObject.getString("marca"),
+                            misDatosJSONObject.getString("presentacion"),
+                            misDatosJSONObject.getString("precio"),
                             misDatosJSONObject.getString("urlCompletaFoto")
                     );
                     alAmigos.add(datosAmigos);
@@ -121,7 +121,7 @@ public class lista_amigos extends AppCompatActivity {
         try {
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
             posicion = info.position;
-            menu.setHeaderTitle("Que deseas hacer con " + datosJSON.getJSONObject(posicion).getJSONObject("value").getString("nombre"));
+            menu.setHeaderTitle("Que deseas hacer con " + datosJSON.getJSONObject(posicion).getJSONObject("value").getString("codigo"));
         }catch (Exception e){
             mostrarMsg("Error al mostrar el menu: "+ e.getMessage());
         }
@@ -152,7 +152,7 @@ public class lista_amigos extends AppCompatActivity {
     private void eliminarAmigo(){
         try {
             AlertDialog.Builder confirmar = new AlertDialog.Builder(lista_amigos.this);
-            confirmar.setTitle("Esta seguro de eliinar a: ");
+            confirmar.setTitle("Esta seguro de eliminar a: ");
             confirmar.setMessage(datosJSON.getJSONObject(posicion).getJSONObject("value").getString("nombre"));
             confirmar.setPositiveButton("SI", new DialogInterface.OnClickListener() {
                 @Override
@@ -160,10 +160,10 @@ public class lista_amigos extends AppCompatActivity {
                     try {
                         String respuesta = db.administrar_amigos("eliminar", new String[]{"", "", datosJSON.getJSONObject(posicion).getJSONObject("value").getString("idAmigo")});
                         if (respuesta.equals("ok")) {
-                            mostrarMsg("Amigo eliminado con exito");
+                            mostrarMsg("Producto eliminado con exito");
                             obtenerAmigos();
                         } else {
-                            mostrarMsg("Error al eliminar el amigo: " + respuesta);
+                            mostrarMsg("Error al eliminar el producto: " + respuesta);
                         }
                     }catch (Exception e){
                         mostrarMsg("Error al eliminar datos: "+ e.getMessage());
@@ -197,7 +197,7 @@ public class lista_amigos extends AppCompatActivity {
                         alAmigos.addAll(alAmigosCopy);
                     }else{
                         for (amigos amigo : alAmigosCopy){
-                            String nombre = amigo.getNombre();
+                            String codigo = amigo.getNombre();
                             String direccion = amigo.getDireccion();
                             String tel = amigo.getTelefono();
                             String email = amigo.getEmail();

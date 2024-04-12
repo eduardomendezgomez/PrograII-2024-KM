@@ -3,23 +3,23 @@ package com.ugb.controlesbasicos;
 public class amigos {
     String _id;
     String _rev;
-    String idAmigo;
-    String nombre;
-    String direccion;
-    String telefono;
-    String email;
-    String dui;
+    String idProducto;
+    String codigo;
+    String descripcion;
+    String marca;
+    String presentacion;
+    String precio;
     String urlFotoAmigo;
 
-    public amigos(String _id, String _rev, String idAmigo, String nombre, String direccion, String telefono, String email, String dui, String urlFoto) {
+    public amigos(String _id, String _rev, String idProducto, String descripcion, String marca, String presentacion, String precio, String codigo, String urlFoto) {
         this._id = _id;
         this._rev = _rev;
-        this.idAmigo = idAmigo;
-        this.nombre = nombre;
-        this.direccion = direccion;
-        this.telefono = telefono;
-        this.email = email;
-        this.dui = dui;
+        this.idProducto = idProducto;
+        this.codigo = codigo;
+        this.descripcion = descripcion;
+        this.marca = marca;
+        this.presentacion = presentacion;
+        this.precio = precio;
         this.urlFotoAmigo = urlFoto;
     }
     public String get_id() {
@@ -42,11 +42,11 @@ public class amigos {
         this.urlFotoAmigo = urlFotoAmigo;
     }
 
-    public String getIdAmigo() {
-        return idAmigo;
+    public String getIdProducto() {
+        return idProducto;
     }
 
-    public void setIdAmigo(String idAmigo) {
+    public void (String idAmigo) {
         this.idAmigo = idAmigo;
     }
 
