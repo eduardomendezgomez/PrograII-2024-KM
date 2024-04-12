@@ -158,7 +158,7 @@ public class lista_amigos extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     try {
-                        String respuesta = db.administrar_amigos("eliminar", new String[]{"", "", datosJSON.getJSONObject(posicion).getJSONObject("value").getString("idAmigo")});
+                        String respuesta = db.administrar_amigos("eliminar", new String[]{"", "", datosJSON.getJSONObject(posicion).getJSONObject("value").getString("idProducto")});
                         if (respuesta.equals("ok")) {
                             mostrarMsg("Producto eliminado con exito");
                             obtenerAmigos();
@@ -201,10 +201,12 @@ public class lista_amigos extends AppCompatActivity {
                             String descripcion = amigo.getDescripcion();
                             String marca = amigo.getMarca();
                             String presentacion = amigo.getPresentacion();
+                            String precio = amigo.getPrecio();
                             if( codigo.trim().toLowerCase().contains(valor) ||
                                     descripcion.trim().toLowerCase().contains(valor) ||
                                     marca.trim().contains(valor) ||
-                                    presentacion.trim().toLowerCase().contains(valor)){
+                                    presentacion.trim().toLowerCase().contains(valor)||
+                            precio.trim().toLowerCase().contains(valor)){
                                 alAmigos.add(amigo);
                             }
                         }
