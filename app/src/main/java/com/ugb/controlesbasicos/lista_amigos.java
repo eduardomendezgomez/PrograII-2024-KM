@@ -42,10 +42,12 @@ public class lista_amigos extends AppCompatActivity {
     JSONObject jsonObject;
     obtenerDatosServidor datosServidor;
     detectarInternet di;
+    int posicion = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lista_amigos);
+        db = new DB(getApplicationContext(),"", null, 1);
         btn = findViewById(R.id.fabAgregarAmigos);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +60,7 @@ public class lista_amigos extends AppCompatActivity {
         if( di.hayConexionInternet() ){
             obtenerDatosAmigosServidor();
         }else{
+            mostrarMsg("No hay conexion, datos en local");
             obtenerAmigos();//offline
         }
         buscarAmigos();
@@ -86,6 +89,8 @@ public class lista_amigos extends AppCompatActivity {
                     misDatosJSONObject = datosJSON.getJSONObject(i).getJSONObject("value");
                     datosAmigos = new amigos(
                             misDatosJSONObject.getString("_id"),
+                            misDatosJSONObject.getString("_rev"),
+                            misDatosJSONObject.getString("idAmigo"),
                             misDatosJSONObject.getString("nombre"),
                             misDatosJSONObject.getString("direccion"),
                             misDatosJSONObject.getString("telefono"),
@@ -113,10 +118,13 @@ public class lista_amigos extends AppCompatActivity {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.mimenu, menu);
-
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-        cAmigos.moveToPosition(info.position);
-        menu.setHeaderTitle("Que deseas hacer con "+ cAmigos.getString(1));//1 es el campo nombre
+        try {
+            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+            posicion = info.position;
+            menu.setHeaderTitle("Que deseas hacer con " + datosJSON.getJSONObject(posicion).getJSONObject("value").getString("nombre"));
+        }catch (Exception e){
+            mostrarMsg("Error al mostrar el menu: "+ e.getMessage());
+        }
     }
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
@@ -127,17 +135,8 @@ public class lista_amigos extends AppCompatActivity {
                     abrirActividad(paramatros);
                     break;
                 case R.id.mnxModificar:
-                    String[] amigos = {
-                            cAmigos.getString(0), //idAmigo
-                            cAmigos.getString(1), //nombre
-                            cAmigos.getString(2), //direccion
-                            cAmigos.getString(3), //telefono
-                            cAmigos.getString(4), //email
-                            cAmigos.getString(5), //dui
-                            cAmigos.getString(6), //foto
-                    };
                     paramatros.putString("accion", "modificar");
-                    paramatros.putStringArray("amigos", amigos);
+                    paramatros.putString("amigos", datosJSON.getJSONObject(posicion).toString());
                     abrirActividad(paramatros);
                     break;
                 case R.id.mnxEliminar:
@@ -154,16 +153,20 @@ public class lista_amigos extends AppCompatActivity {
         try {
             AlertDialog.Builder confirmar = new AlertDialog.Builder(lista_amigos.this);
             confirmar.setTitle("Esta seguro de eliinar a: ");
-            confirmar.setMessage(cAmigos.getString(1));
+            confirmar.setMessage(datosJSON.getJSONObject(posicion).getJSONObject("value").getString("nombre"));
             confirmar.setPositiveButton("SI", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    String respuesta = db.administrar_amigos("eliminar", new String[]{cAmigos.getString(0)});
-                    if( respuesta.equals("ok") ){
-                        mostrarMsg("Amigo eliminado con exito");
-                        obtenerAmigos();
-                    }else{
-                        mostrarMsg("Error al eliminar el amigo: "+ respuesta);
+                    try {
+                        String respuesta = db.administrar_amigos("eliminar", new String[]{"", "", datosJSON.getJSONObject(posicion).getJSONObject("value").getString("idAmigo")});
+                        if (respuesta.equals("ok")) {
+                            mostrarMsg("Amigo eliminado con exito");
+                            obtenerAmigos();
+                        } else {
+                            mostrarMsg("Error al eliminar el amigo: " + respuesta);
+                        }
+                    }catch (Exception e){
+                        mostrarMsg("Error al eliminar datos: "+ e.getMessage());
                     }
                 }
             });
@@ -225,7 +228,6 @@ public class lista_amigos extends AppCompatActivity {
     }
     private void obtenerAmigos(){ //offline
         try{
-            db = new DB(getApplicationContext(),"", null, 1);
             cAmigos = db.obtener_amigos();
             if( cAmigos.moveToFirst() ){
                 datosJSON = new JSONArray();
@@ -234,17 +236,19 @@ public class lista_amigos extends AppCompatActivity {
                     JSONObject jsonObjectValue = new JSONObject();
 
                     jsonObject.put("_id", cAmigos.getString(0));
-                    jsonObject.put("_rev", cAmigos.getString(0));
-                    jsonObject.put("nombre", cAmigos.getString(1));
-                    jsonObject.put("direccion", cAmigos.getString(2));
-                    jsonObject.put("telefono", cAmigos.getString(3));
-                    jsonObject.put("email", cAmigos.getString(4));
-                    jsonObject.put("dui", cAmigos.getString(5));
-                    jsonObject.put("urlCompletaFoto", cAmigos.getString(6));
+                    jsonObject.put("_rev", cAmigos.getString(1));
+                    jsonObject.put("idAmigo", cAmigos.getString(2));
+                    jsonObject.put("nombre", cAmigos.getString(3));
+                    jsonObject.put("direccion", cAmigos.getString(4));
+                    jsonObject.put("telefono", cAmigos.getString(5));
+                    jsonObject.put("email", cAmigos.getString(6));
+                    jsonObject.put("dui", cAmigos.getString(7));
+                    jsonObject.put("urlCompletaFoto", cAmigos.getString(8));
                     jsonObjectValue.put("value", jsonObject);
 
                     datosJSON.put(jsonObjectValue);
                 }while (cAmigos.moveToNext());
+                mostrarMsg("Punto");
                 mostrarDatosAmigos();
             }else {
                 paramatros.putString("accion", "nuevo");
@@ -252,7 +256,7 @@ public class lista_amigos extends AppCompatActivity {
                 mostrarMsg("No hay Datos de amigos.");
             }
         }catch (Exception e){
-            mostrarMsg("Error al obtener los amigos: "+ e.getMessage());
+            mostrarMsg("Error al obtener los amigos : "+ e.getMessage());
         }
     }
     private void mostrarMsg(String msg){

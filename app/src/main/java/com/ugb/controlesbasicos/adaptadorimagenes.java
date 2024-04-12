@@ -32,11 +32,11 @@ public class adaptadorimagenes extends BaseAdapter {
     }
     @Override
     public long getItemId(int i) {
-        return Long.parseLong(datosAmigosArrayList.get(i).getIdAmigo());
+        return i; //Long.parseLong(datosAmigosArrayList.get(i).getIdAmigo());
     }
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        layoutInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View itemView = layoutInflater.inflate(R.layout.listview_imagenes, viewGroup, false);
         try{
             datosAmigos = datosAmigosArrayList.get(i);
