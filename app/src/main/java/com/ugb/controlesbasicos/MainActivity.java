@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                         datosAmigos.put("_id", id);
                         datosAmigos.put("_rev", rev);
                     }
-                    datosAmigos.put("idAmigo", idProducto);
+                    datosAmigos.put("idProducto", idProducto);
                     datosAmigos.put("codigo", codigo);
                     datosAmigos.put("descripcion", descripcion);
                     datosAmigos.put("marca", marca);
@@ -94,13 +94,13 @@ public class MainActivity extends AppCompatActivity {
                         mostrarMsg("Error al guardar datos en el servidor");
                     }
                     DB db = new DB(getApplicationContext(), "",null, 1);
-                    String[] datos = new String[]{id, rev, idProducto,codigo,descripcion,marca,presentacion,precio, urlCompletaFoto};
+                    String[] datos = new String[]{id, rev, idProducto, codigo, descripcion, marca, presentacion, precio, urlCompletaFoto};
                     respuesta = db.administrar_amigos(accion, datos);
                     if(respuesta.equals("ok")){
-                        Toast.makeText(getApplicationContext(), "Amigo guardado con exito", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Producto guardado con exito", Toast.LENGTH_LONG).show();
                         abrirActividad();
                     }else{
-                        Toast.makeText(getApplicationContext(), "Error al intentar guardar el amigo: "+ respuesta, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Error al intentar guardar el producto: "+ respuesta, Toast.LENGTH_LONG).show();
                     }
                 }catch (Exception e){
                     Toast.makeText(getApplicationContext(), "Error: "+ e.getMessage(), Toast.LENGTH_LONG).show();

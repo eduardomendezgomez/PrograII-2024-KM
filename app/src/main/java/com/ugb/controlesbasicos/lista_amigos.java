@@ -74,7 +74,7 @@ public class lista_amigos extends AppCompatActivity {
             datosJSON = jsonObject.getJSONArray("rows");
             mostrarDatosAmigos();
         }catch (Exception e){
-            mostrarMsg("Error al obtener datos amigos del server: "+ e.getMessage());
+            mostrarMsg("Error al obtener datos de productos del server: "+ e.getMessage());
         }
     }
     private void mostrarDatosAmigos(){
@@ -136,7 +136,7 @@ public class lista_amigos extends AppCompatActivity {
                     break;
                 case R.id.mnxModificar:
                     paramatros.putString("accion", "modificar");
-                    paramatros.putString("amigos", datosJSON.getJSONObject(posicion).toString());
+                    paramatros.putString("producto", datosJSON.getJSONObject(posicion).toString());
                     abrirActividad(paramatros);
                     break;
                 case R.id.mnxEliminar:
@@ -153,7 +153,7 @@ public class lista_amigos extends AppCompatActivity {
         try {
             AlertDialog.Builder confirmar = new AlertDialog.Builder(lista_amigos.this);
             confirmar.setTitle("Esta seguro de eliminar a: ");
-            confirmar.setMessage(datosJSON.getJSONObject(posicion).getJSONObject("value").getString("nombre"));
+            confirmar.setMessage(datosJSON.getJSONObject(posicion).getJSONObject("value").getString("codigo"));
             confirmar.setPositiveButton("SI", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
