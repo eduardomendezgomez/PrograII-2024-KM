@@ -35,11 +35,14 @@ public class MainActivity extends AppCompatActivity {
     Intent tomarFotoIntent;
     ImageView img;
     utilidades utls;
+    DB db;
+    detectarInternet di;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        db = new DB(getApplicationContext(), "", null, 1);
+        di = new detectarInternet(getApplicationContext());
         utls = new utilidades();
         fab = findViewById(R.id.fabListarAmigos);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -144,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 mostrarMsg("El usuario cancelo la toma de la foto");
             }
         }catch (Exception e){
-            mostrarMsg("Error añ obtener la foto de la camara");
+            mostrarMsg("Error aL obtener la foto de la camara");
         }
     }
     private File crearImagenAmigo() throws Exception{
@@ -164,7 +167,8 @@ public class MainActivity extends AppCompatActivity {
             accion = parametros.getString("accion");
 
             if(accion.equals("modificar")){
-                JSONObject jsonObject = new JSONObject(parametros.getString("amigos")).getJSONObject("value");
+
+                JSONObject jsonObject = new JSONObject(parametros.getString("tienda")).getJSONObject("value");
                 id = jsonObject.getString("_id");
                 rev = jsonObject.getString("_rev");
                 idProducto = jsonObject.getString("idProducto");

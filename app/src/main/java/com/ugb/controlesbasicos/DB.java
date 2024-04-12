@@ -31,10 +31,10 @@ public class DB extends SQLiteOpenHelper {
                 sql = "INSERT INTO tienda(id,rev,idProducto,codigo,descripcion,marca,presentacion,precio,foto) VALUES('"+ datos[0] +"','"+ datos[1] +"','"+ datos[2] +"', '"+
                         datos[3] +"', '"+ datos[4] +"','"+ datos[5] +"','"+ datos[6] +"', '"+ datos[7] +"', '"+ datos[8] +"' )";
             } else if (accion.equals("modificar")) {
-                sql = "UPDATE tienda SET id='"+ datos[0] +"',rev='"+ datos[1] +"', codigo='"+ datos[3] +"', descripcion='"+ datos[4] +"', marca='"+ datos[5] +"', presnetacion=" +
+                sql = "UPDATE tienda SET id='"+ datos[0] +"',rev='"+ datos[1] +"', codigo='"+ datos[3] +"', descripcion='"+ datos[4] +"', marca='"+ datos[5] +"', presentacion=" +
                         "'"+ datos[6] +"', precio='"+ datos[7] +"', foto='"+ datos[8] +"' WHERE idProducto='"+ datos[2] +"'";
             } else if (accion.equals("eliminar")) {
-                sql = "DELETE FROM tienda WHERE idProductos='"+ datos[2] +"'";
+                sql = "DELETE FROM tienda WHERE idProducto='"+ datos[2] +"'";
             }
             db.execSQL(sql);
             return "ok";

@@ -47,7 +47,7 @@ public class lista_amigos extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lista_amigos);
-        db = new DB(getApplicationContext(),"", null, 1);
+        db = new DB(lista_amigos.this, "", null, 1);
         btn = findViewById(R.id.fabAgregarAmigos);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,12 +56,15 @@ public class lista_amigos extends AppCompatActivity {
                 abrirActividad(paramatros);
             }
         });
-        di = new detectarInternet(getApplicationContext());
-        if( di.hayConexionInternet() ){
-            obtenerDatosAmigosServidor();
-        }else{
-            mostrarMsg("No hay conexion, datos en local");
-            obtenerAmigos();//offline
+        try{
+            di = new detectarInternet(getApplicationContext());
+            if( di.hayConexionInternet() ){
+                obtenerDatosAmigosServidor();
+            }else{//offline
+                obtenerAmigos();
+            }
+        }catch (Exception e){
+            mostrarMsg("Error al cargar lista amigo: "+ e.getMessage());
         }
         buscarAmigos();
     }
@@ -136,7 +139,7 @@ public class lista_amigos extends AppCompatActivity {
                     break;
                 case R.id.mnxModificar:
                     paramatros.putString("accion", "modificar");
-                    paramatros.putString("producto", datosJSON.getJSONObject(posicion).toString());
+                    paramatros.putString("tienda", datosJSON.getJSONObject(posicion).toString());
                     abrirActividad(paramatros);
                     break;
                 case R.id.mnxEliminar:
@@ -158,7 +161,8 @@ public class lista_amigos extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     try {
-                        String respuesta = db.administrar_amigos("eliminar", new String[]{"", "", datosJSON.getJSONObject(posicion).getJSONObject("value").getString("idProducto")});
+                        String respuesta = db.administrar_amigos("eliminar",
+                                new String[]{"", "", datosJSON.getJSONObject(posicion).getJSONObject("value").getString("idProducto")});
                         if (respuesta.equals("ok")) {
                             mostrarMsg("Producto eliminado con exito");
                             obtenerAmigos();
