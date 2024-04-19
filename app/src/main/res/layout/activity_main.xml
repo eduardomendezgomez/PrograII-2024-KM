@@ -7,8 +7,8 @@
 
     <ImageButton
         android:id="@+id/btnImgProdu"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginStart="127dp"
         android:layout_marginEnd="134dp"
         android:src="@android:drawable/ic_menu_camera" />
@@ -18,7 +18,7 @@
         android:inputType="textPersonName"
         android:hint="Codigo"
         android:layout_below="@+id/btnImgProdu"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <EditText
@@ -26,7 +26,7 @@
         android:hint="Descripcion"
         android:inputType="textMultiLine"
         android:layout_below="@id/txtCodigo"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <EditText
@@ -34,7 +34,7 @@
         android:hint="Marca"
         android:inputType="textMultiLine"
         android:layout_below="@id/txtDescripcion"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <EditText
@@ -42,7 +42,7 @@
         android:hint="Presentacion"
         android:inputType="textMultiLine"
         android:layout_below="@id/txtMarca"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <EditText
@@ -50,16 +50,35 @@
         android:inputType="numberDecimal"
         android:hint="Precio"
         android:layout_below="@id/txtPresentacion"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/txtCosto"
+        android:inputType="numberDecimal"
+        android:hint="Costo"
+        android:layout_below="@id/txtPrecio"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/txtStok"
+        android:inputType="numberDecimal"
+        android:hint="Stock"
+        android:layout_below="@id/txtCosto"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
     <Button
         android:id="@+id/btnGuardarProducto"
-        android:layout_below="@id/txtPrecio"
-        android:layout_marginTop="40dp"
+        android:layout_below="@id/txtStok"
+        android:layout_marginTop="30dp"
         android:text="GUARDAR PRODUCTO"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabListarAmigos"
         android:layout_width="wrap_content"
@@ -69,7 +88,8 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="62dp"
         android:src="@android:drawable/ic_menu_revert" />
 
 </RelativeLayout>

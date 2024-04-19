@@ -9,9 +9,11 @@ public class amigos {
     String marca;
     String presentacion;
     String precio;
+    String costo;
+    String stok;
     String urlFotoProdu;
 
-    public amigos(String _id, String _rev, String idProducto, String descripcion, String marca, String presentacion, String precio, String codigo, String urlFoto) {
+    public amigos(String _id, String _rev, String idProducto, String descripcion, String marca, String presentacion, String precio, String codigo, String costo, String stok, String urlFoto) {
         this._id = _id;
         this._rev = _rev;
         this.idProducto = idProducto;
@@ -20,6 +22,8 @@ public class amigos {
         this.marca = marca;
         this.presentacion = presentacion;
         this.precio = precio;
+        this.costo = costo;
+        this.stok = stok;
         this.urlFotoProdu = urlFoto;
     }
     public String get_id() {
@@ -88,5 +92,20 @@ public class amigos {
 
     public void setPrecio(String precio) {
         this.precio = precio;
+    }
+    public String getCosto() {
+        return costo;
+    }
+
+    public void setCosto(String costo) {
+        this.costo = costo;
+    }
+
+    public String getStok() {
+        return stok;
+    }
+
+    public void setStok(String stok) {
+        this.stok = stok;
     }
 }

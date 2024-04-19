@@ -99,6 +99,8 @@ public class lista_amigos extends AppCompatActivity {
                             misDatosJSONObject.getString("marca"),
                             misDatosJSONObject.getString("presentacion"),
                             misDatosJSONObject.getString("precio"),
+                            misDatosJSONObject.getString("costo"),
+                            misDatosJSONObject.getString("stok"),
                             misDatosJSONObject.getString("urlCompletaFoto")
                     );
                     alAmigos.add(datosAmigos);
@@ -206,11 +208,16 @@ public class lista_amigos extends AppCompatActivity {
                             String marca = amigo.getMarca();
                             String presentacion = amigo.getPresentacion();
                             String precio = amigo.getPrecio();
+                            String costo = amigo.getCosto();
+                            String stok = amigo.getStok();
                             if( codigo.trim().toLowerCase().contains(valor) ||
                                     descripcion.trim().toLowerCase().contains(valor) ||
                                     marca.trim().contains(valor) ||
                                     presentacion.trim().toLowerCase().contains(valor)||
-                            precio.trim().toLowerCase().contains(valor)){
+                                    precio.trim().toLowerCase().contains(valor)||
+                                    costo.trim().toLowerCase().contains(valor) ||
+                                    stok.trim().toLowerCase().contains(valor)
+                            ){
                                 alAmigos.add(amigo);
                             }
                         }
@@ -249,7 +256,9 @@ public class lista_amigos extends AppCompatActivity {
                     jsonObject.put("marca", cAmigos.getString(5));
                     jsonObject.put("presentacion", cAmigos.getString(6));
                     jsonObject.put("precio", cAmigos.getString(7));
-                    jsonObject.put("urlCompletaFoto", cAmigos.getString(8));
+                    jsonObject.put("costo",cAmigos.getString(8));
+                    jsonObject.put("stok",cAmigos.getString(9));
+                    jsonObject.put("urlCompletaFoto", cAmigos.getString(10));
                     jsonObjectValue.put("value", jsonObject);
 
                     datosJSON.put(jsonObjectValue);

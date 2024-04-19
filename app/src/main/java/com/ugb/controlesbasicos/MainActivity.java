@@ -71,6 +71,12 @@ public class MainActivity extends AppCompatActivity {
                     tempVal = findViewById(R.id.txtPrecio);
                     String precio = tempVal.getText().toString();
 
+                    tempVal = findViewById(R.id.txtCosto);
+                    String costo = tempVal.getText().toString();
+
+                    tempVal = findViewById(R.id.txtStok);
+                    String stok = tempVal.getText().toString();
+
                     //guardar datos en el servidor
                     JSONObject datosAmigos = new JSONObject();
                     if(accion.equals("modificar")){
@@ -83,7 +89,10 @@ public class MainActivity extends AppCompatActivity {
                     datosAmigos.put("marca", marca);
                     datosAmigos.put("presentacion", presentacion);
                     datosAmigos.put("precio", precio);
+                    datosAmigos.put("costo", costo);
+                    datosAmigos.put("stok", stok);
                     datosAmigos.put("urlCompletaFoto", urlCompletaFoto);
+
 
                     String respuesta = "";
                     enviarDatosServidor objGuardarDatosServidor = new enviarDatosServidor(getApplicationContext());
@@ -97,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                         mostrarMsg("Error al guardar datos en el servidor");
                     }
                     DB db = new DB(getApplicationContext(), "",null, 1);
-                    String[] datos = new String[]{id, rev, idProducto, codigo, descripcion, marca, presentacion, precio, urlCompletaFoto};
+                    String[] datos = new String[]{id, rev, idProducto, codigo, descripcion, marca, presentacion, precio, costo, stok, urlCompletaFoto};
                     respuesta = db.administrar_amigos(accion, datos);
                     if(respuesta.equals("ok")){
                         Toast.makeText(getApplicationContext(), "Producto guardado con exito", Toast.LENGTH_LONG).show();
@@ -187,6 +196,12 @@ public class MainActivity extends AppCompatActivity {
 
                 tempVal = findViewById(R.id.txtPrecio);
                 tempVal.setText(jsonObject.getString("precio"));
+
+                tempVal = findViewById(R.id.txtCosto);
+                tempVal.setText(jsonObject.getString("costo"));
+
+                tempVal = findViewById(R.id.txtStok);
+                tempVal.setText(jsonObject.getString("stok"));
 
                 urlCompletaFoto = jsonObject.getString("urlCompletaFoto");
                 Bitmap imageBitmap = BitmapFactory.decodeFile(urlCompletaFoto);
