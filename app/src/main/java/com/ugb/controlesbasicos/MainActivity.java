@@ -116,14 +116,8 @@ public class MainActivity extends AppCompatActivity {
             tempVal = findViewById(R.id.txtdireccion);
             String direccion = tempVal.getText().toString();
 
-            tempVal = findViewById(R.id.txtTelefono);
-            String tel = tempVal.getText().toString();
-
             tempVal = findViewById(R.id.txtemail);
             String email = tempVal.getText().toString();
-
-            tempVal = findViewById(R.id.txtdui);
-            String dui = tempVal.getText().toString();
 
             databaseReference = FirebaseDatabase.getInstance().getReference("amigos");
             String key = databaseReference.push().getKey();
@@ -132,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 obtenerToken();
             }
             if( miToken!=null && miToken!="" ){
-                amigos amigo = new amigos(idAmigo,nombre,direccion,tel,email,dui,urlCompletaFoto,getUrlCompletaFotoFirestore,miToken);
+                amigos amigo = new amigos(idAmigo,nombre,direccion,email,urlCompletaFoto,getUrlCompletaFotoFirestore,miToken);
                 if(key!=null){
                     databaseReference.child(key).setValue(amigo).addOnSuccessListener(aVoid->{
                         mostrarMsg("Amigo registrado con exito.");
@@ -206,14 +200,8 @@ public class MainActivity extends AppCompatActivity {
                 tempVal = findViewById(R.id.txtdireccion);
                 tempVal.setText(jsonObject.getString("direccion"));
 
-                tempVal = findViewById(R.id.txtTelefono);
-                tempVal.setText(jsonObject.getString("telefono"));
-
                 tempVal = findViewById(R.id.txtemail);
                 tempVal.setText(jsonObject.getString("email"));
-
-                tempVal = findViewById(R.id.txtdui);
-                tempVal.setText(jsonObject.getString("dui"));
 
                 urlCompletaFoto = jsonObject.getString("urlCompletaFoto");
                 Bitmap imageBitmap = BitmapFactory.decodeFile(urlCompletaFoto);

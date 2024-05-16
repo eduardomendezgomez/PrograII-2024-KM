@@ -1,5 +1,6 @@
 package com.ugb.controlesbasicos;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,6 +35,7 @@ public class adaptadorimagenes extends BaseAdapter {
     public long getItemId(int i) {
         return i; //Long.parseLong(datosAmigosArrayList.get(i).getIdAmigo());
     }
+    @SuppressLint("MissingInflatedId")
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -44,11 +46,8 @@ public class adaptadorimagenes extends BaseAdapter {
             TextView tempVal = itemView.findViewById(R.id.lblnombre);
             tempVal.setText(datosAmigos.getNombre());
 
-            tempVal = itemView.findViewById(R.id.lbltelefono);
-            tempVal.setText(datosAmigos.getTelefono());
-
-            tempVal = itemView.findViewById(R.id.lblemail);
-            tempVal.setText(datosAmigos.getEmail());
+            tempVal = itemView.findViewById(R.id.lbldireccion);
+            tempVal.setText(datosAmigos.getDireccion());
 
             Bitmap imageBitmap = BitmapFactory.decodeFile(datosAmigos.getUrlFotoAmigo());
             ImageView img = itemView.findViewById(R.id.imgFoto);

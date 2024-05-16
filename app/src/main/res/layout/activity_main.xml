@@ -5,6 +5,31 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TabHost
+        android:id="@+id/tbhBlock"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:id="@+id/Block"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
     <ImageButton
         android:id="@+id/btnImgAmigo"
         android:layout_width="150dp"
@@ -15,47 +40,33 @@
 
     <EditText
         android:id="@+id/txtnombre"
-        android:inputType="textPersonName"
-        android:hint="Nombre"
+        android:inputType="textMultiLine"
+        android:hint="Titulo"
         android:layout_below="@+id/btnImgAmigo"
         android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <EditText
         android:id="@+id/txtdireccion"
-        android:hint="Direccion"
+        android:hint="Sentimiento o emocion"
         android:inputType="textMultiLine"
         android:layout_below="@id/txtnombre"
         android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
     <EditText
-        android:id="@+id/txtTelefono"
-        android:hint="Telefono"
-        android:inputType="phone"
+        android:id="@+id/txtemail"
+        android:hint="Nota"
+        android:inputType="textMultiLine"
         android:layout_below="@id/txtdireccion"
         android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    <EditText
-        android:id="@+id/txtemail"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:layout_below="@id/txtTelefono"
-        android:layout_marginTop="40dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <EditText
-        android:id="@+id/txtdui"
-        android:inputType="number"
-        android:hint="DUI"
-        android:layout_below="@id/txtemail"
-        android:layout_marginTop="40dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+
     <Button
         android:id="@+id/btnGuardarAgendaAmigos"
-        android:layout_below="@id/txtdui"
+        android:layout_below="@id/txtemail"
         android:layout_marginTop="40dp"
         android:text="GUARDAR AMIGO"
         android:layout_width="match_parent"
@@ -71,5 +82,25 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:src="@android:drawable/ic_menu_revert" />
+                </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/Consejos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+    </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/Chat"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
 
 </RelativeLayout>
