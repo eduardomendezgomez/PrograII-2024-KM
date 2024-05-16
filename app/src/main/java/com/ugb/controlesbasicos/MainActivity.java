@@ -18,7 +18,6 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.TabHost;
 
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -37,7 +36,6 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     Button btn;
-    TabHost tbh;
     FloatingActionButton fab;
     TextView tempVal;
     String accion = "nuevo";
@@ -56,16 +54,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         di = new detectarInternet(getApplicationContext());
         utls = new utilidades();
-        tbh = findViewById(R.id.tbhBlock);
-        tbh.setup();
-        tbh.addTab(tbh.newTabSpec("BLOCK").setIndicator("BLOCK", null).setContent(R.id.Block));
-        tbh.addTab(tbh.newTabSpec("CON").setIndicator("CON", null).setContent(R.id.Consejos));
-        tbh.addTab(tbh.newTabSpec("CHAT").setIndicator("CHAT", null).setContent(R.id.Chat));
         fab = findViewById(R.id.fabListarAmigos);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                abrirActividad();
+            public void onClick(View view) {abrirActividad();
             }
         });
         btn = findViewById(R.id.btnGuardarAgendaAmigos);
