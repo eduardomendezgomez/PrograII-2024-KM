@@ -1,14 +1,14 @@
 {
   "project_info": {
-    "project_number": "1096539353475",
-    "firebase_url": "https://practicaugb2024prograii-default-rtdb.firebaseio.com",
-    "project_id": "practicaugb2024prograii",
-    "storage_bucket": "practicaugb2024prograii.appspot.com"
+    "project_number": "849486539388",
+    "firebase_url": "https://proyectopii2024-default-rtdb.firebaseio.com",
+    "project_id": "proyectopii2024",
+    "storage_bucket": "proyectopii2024.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1096539353475:android:1f077835df32dbbea886b6",
+        "mobilesdk_app_id": "1:849486539388:android:9c23a1255145b3616ff7f9",
         "android_client_info": {
           "package_name": "com.ugb.controlesbasicos"
         }
@@ -16,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCfbz3XV6oHn7gsuOKHWGvtq0_a1oviDUQ"
+          "current_key": "AIzaSyCKEYM8w9EIArXqL_O82AZOo-5y34OVZEM"
         }
       ],
       "services": {
