@@ -135,10 +135,10 @@ public class MainActivity extends AppCompatActivity {
                 amigos amigo = new amigos(idAmigo,nombre,direccion,email,urlCompletaFoto,getUrlCompletaFotoFirestore,miToken);
                 if(key!=null){
                     databaseReference.child(key).setValue(amigo).addOnSuccessListener(aVoid->{
-                        mostrarMsg("Amigo registrado con exito.");
+                        mostrarMsg("Momento registrado con exito.");
                     });
                 }else{
-                    mostrarMsg("Error nose pudo guardar en la base de datos");
+                    mostrarMsg("Error no se pudo guardar en la base de datos");
                 }
             }else {
                 mostrarMsg("Tu dispositivo no soporta la aplicacion");
