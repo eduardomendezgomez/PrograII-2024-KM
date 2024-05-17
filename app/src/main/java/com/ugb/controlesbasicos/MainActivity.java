@@ -18,6 +18,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TabHost;
 
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     utilidades utls;
     detectarInternet di;
     String miToken = "";
+    TabHost tbh;
     DatabaseReference databaseReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         di = new detectarInternet(getApplicationContext());
         utls = new utilidades();
+        tbh = findViewById(R.id.tbhBlock);
+        tbh.setup();
+        tbh.addTab(tbh.newTabSpec("BLOCK").setContent(R.id.BLOCK).setIndicator("BLOCK",null));
+        tbh.addTab(tbh.newTabSpec("CON").setContent(R.id.CONSEJOS).setIndicator("CONSEJOS",null));
+        tbh.addTab(tbh.newTabSpec("CHAT").setContent(R.id.CHAT).setIndicator("CHAT",null));
         fab = findViewById(R.id.fabListarAmigos);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

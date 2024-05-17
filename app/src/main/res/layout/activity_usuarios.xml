@@ -3,22 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="#6338AF"
     tools:context=".usuarios">
+
 
     <EditText
         android:id="@+id/txtNombreUsuario"
-        android:hint="nombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"/>
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="10dp"
+        android:hint="Nombre" />
+
+    <EditText
+        android:id="@+id/txtContraseña"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtNombreUsuario"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:hint="Contraseña" />
 
     <Button
         android:id="@+id/btnGuardarUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtNombreUsuario"
+        android:layout_below="@+id/txtContraseña"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
         android:height="80dp"

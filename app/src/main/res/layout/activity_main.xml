@@ -5,6 +5,32 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TabHost
+        android:id="@+id/tbhBlock"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:id="@+id/BLOCK"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
     <ImageButton
         android:id="@+id/btnImgAmigo"
         android:layout_width="150dp"
@@ -57,6 +83,26 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:src="@android:drawable/ic_menu_revert" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/CONSEJOS"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/CHAT"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
 
 
 </RelativeLayout>
