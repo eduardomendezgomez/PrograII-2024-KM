@@ -69,7 +69,7 @@
         android:id="@+id/btnGuardarAgendaAmigos"
         android:layout_below="@id/txtemail"
         android:layout_marginTop="40dp"
-        android:text="GUARDAR AMIGO"
+        android:text="GUARDAR MOMENTO"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -90,6 +90,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/lblText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Consejos que puedes aplicar en tu dia a dia"
+                        />
 
                 </LinearLayout>
 
