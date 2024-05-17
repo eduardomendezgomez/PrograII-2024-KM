@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         tbh.addTab(tbh.newTabSpec("BLOCK").setContent(R.id.BLOCK).setIndicator("BLOCK",null));
         tbh.addTab(tbh.newTabSpec("CON").setContent(R.id.CONSEJOS).setIndicator("CONSEJOS",null));
         tbh.addTab(tbh.newTabSpec("CHAT").setContent(R.id.CHAT).setIndicator("CHAT",null));
+        tbh.addTab(tbh.newTabSpec("NOTAS").setContent(R.id.NOTAS).setIndicator("NOTAS",null));
         fab = findViewById(R.id.fabListarAmigos);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,4 +227,5 @@ public class MainActivity extends AppCompatActivity {
         Intent abrirActividad = new Intent(getApplicationContext(), lista_amigos.class);
         startActivity(abrirActividad);
     }
+
 }

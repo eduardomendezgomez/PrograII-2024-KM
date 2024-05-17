@@ -84,6 +84,34 @@
         android:layout_marginBottom="20dp"
         android:src="@android:drawable/ic_menu_revert" />
                 </RelativeLayout>
+                <LinearLayout
+                    android:id="@+id/NOTAS"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <EditText
+                        android:id="@+id/txtBuscarAmigos"
+                        android:hint="Buscar Nota"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <ListView
+                        android:id="@+id/ltsAmigos"
+                        android:layout_marginTop="40dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/fabAgregarAmigos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:src="@android:drawable/ic_input_add" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/CONSEJOS"
@@ -95,7 +123,7 @@
                         android:id="@+id/lblText"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="Consejos que puedes aplicar en tu dia a dia"
+                        android:text="Consejos, videos y contactos de ayuda que puedes aplicar en tu dia a dia"
                         />
 
                 </LinearLayout>
@@ -105,7 +133,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-
+                    <TextView
+                        android:id="@+id/lblText2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="El chat"
+                        />
                 </LinearLayout>
             </FrameLayout>
         </LinearLayout>
