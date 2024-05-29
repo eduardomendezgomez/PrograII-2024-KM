@@ -136,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
                 if(key!=null){
                     databaseReference.child(key).setValue(amigo).addOnSuccessListener(aVoid->{
                         mostrarMsg("Amigo registrado con exito.");
+                        abrirActividad();
                     });
                 }else{
                     mostrarMsg("Error nose pudo guardar en la base de datos");
@@ -175,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
                 mostrarMsg("El usuario cancelo la toma de la foto");
             }
         }catch (Exception e){
-            mostrarMsg("Error al obtener la foto de la camara");
+            mostrarMsg("Error añ obtener la foto de la camara");
         }
     }
     private File crearImagenAmigo() throws Exception{
@@ -193,9 +194,9 @@ public class MainActivity extends AppCompatActivity {
         try{
             Bundle parametros = getIntent().getExtras();//Recibir los parametros...
             accion = parametros.getString("accion");
+
             if(accion.equals("modificar")){
                 JSONObject jsonObject = new JSONObject(parametros.getString("amigos")).getJSONObject("value");
-
                 id = jsonObject.getString("_id");
                 rev = jsonObject.getString("_rev");
                 idAmigo = jsonObject.getString("idAmigo");
