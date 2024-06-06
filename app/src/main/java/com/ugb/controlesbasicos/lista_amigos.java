@@ -183,7 +183,7 @@ public class lista_amigos extends AppCompatActivity {
                         for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                             amigos amigo = dataSnapshot.getValue(amigos.class);
                             jsonObject = new JSONObject();
-                            jsonObject.put("idNotas", amigo.getIdNota());
+                            jsonObject.put("idNota", amigo.getIdNota());
                             jsonObject.put("nombre", amigo.getNombre());
                             jsonObject.put("titulo", amigo.getTitulo());
                             jsonObject.put("emocion", amigo.getEmocion());
