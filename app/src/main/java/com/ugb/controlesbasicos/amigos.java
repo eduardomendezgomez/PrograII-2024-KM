@@ -1,24 +1,22 @@
 package com.ugb.controlesbasicos;
 
 public class amigos {
-    String idAmigo;
+    String idNota;
     String nombre;
-    String direccion;
-    String telefono;
-    String email;
-    String dui;
+    String titulo;
+    String emocion;
+    String contenido;
     String urlFotoAmigo;
     String urlFotoAmigoFirestore;
     String token;
 
     public amigos(){}
-    public amigos(String idAmigo, String nombre, String direccion, String telefono, String email, String dui, String urlFoto, String urlFotoAmigoFirestore, String token) {
-        this.idAmigo = idAmigo;
+    public amigos(String idNota, String nombre, String titulo, String emocion, String contenido, String urlFoto, String urlFotoAmigoFirestore, String token) {
+        this.idNota = idNota;
         this.nombre = nombre;
-        this.direccion = direccion;
-        this.telefono = telefono;
-        this.email = email;
-        this.dui = dui;
+        this.titulo = titulo;
+        this.emocion = emocion;
+        this.contenido = contenido;
         this.urlFotoAmigo = urlFoto;
         this.urlFotoAmigoFirestore = urlFotoAmigoFirestore;
         this.token = token;
@@ -48,14 +46,6 @@ public class amigos {
         this.urlFotoAmigo = urlFotoAmigo;
     }
 
-    public String getIdAmigo() {
-        return idAmigo;
-    }
-
-    public void setIdAmigo(String idAmigo) {
-        this.idAmigo = idAmigo;
-    }
-
     public String getNombre() {
         return nombre;
     }
@@ -64,35 +54,35 @@ public class amigos {
         this.nombre = nombre;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public String getIdNota() {
+        return idNota;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setIdNota(String idNota) {
+        this.idNota = idNota;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEmocion() {
+        return emocion;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmocion(String emocion) {
+        this.emocion = emocion;
     }
 
-    public String getDui() {
-        return dui;
+    public String getContenido() {
+        return contenido;
     }
 
-    public void setDui(String dui) {
-        this.dui = dui;
+    public void setContenido(String contenido) {
+        this.contenido = contenido;
     }
 }

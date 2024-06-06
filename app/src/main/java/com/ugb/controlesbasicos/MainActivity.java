@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton fab;
     TextView tempVal;
     String accion = "nuevo";
-    String id="", rev="", idAmigo="";
+    String id="", rev="", idNota="";
     String urlCompletaFoto;
     String getUrlCompletaFotoFirestore;
     Intent tomarFotoIntent;
@@ -113,29 +113,26 @@ public class MainActivity extends AppCompatActivity {
             tempVal = findViewById(R.id.txtnombre);
             String nombre = tempVal.getText().toString();
 
-            tempVal = findViewById(R.id.txtdireccion);
-            String direccion = tempVal.getText().toString();
+            tempVal = findViewById(R.id.txtTitulo);
+            String titulo = tempVal.getText().toString();
 
-            tempVal = findViewById(R.id.txtTelefono);
-            String tel = tempVal.getText().toString();
+            tempVal = findViewById(R.id.txtEmocion);
+            String emocion = tempVal.getText().toString();
 
-            tempVal = findViewById(R.id.txtemail);
-            String email = tempVal.getText().toString();
+            tempVal = findViewById(R.id.txtContenido);
+            String contenido = tempVal.getText().toString();
 
-            tempVal = findViewById(R.id.txtdui);
-            String dui = tempVal.getText().toString();
-
-            databaseReference = FirebaseDatabase.getInstance().getReference("amigos");
+            databaseReference = FirebaseDatabase.getInstance().getReference("notas");
             String key = databaseReference.push().getKey();
 
             if(miToken.equals("") || miToken==null){
                 obtenerToken();
             }
             if( miToken!=null && miToken!="" ){
-                amigos amigo = new amigos(idAmigo,nombre,direccion,tel,email,dui,urlCompletaFoto,getUrlCompletaFotoFirestore,miToken);
+                amigos amigo = new amigos(idNota,nombre,titulo,emocion,contenido,urlCompletaFoto,getUrlCompletaFotoFirestore,miToken);
                 if(key!=null){
                     databaseReference.child(key).setValue(amigo).addOnSuccessListener(aVoid->{
-                        mostrarMsg("Amigo registrado con exito.");
+                        mostrarMsg("Nota registrada con exito.");
                         abrirActividad();
                     });
                 }else{
@@ -159,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
                 tomarFotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriFotoamigo);
                 startActivityForResult(tomarFotoIntent, 1);
             }else{
-                mostrarMsg("No se pudo creaar la foto");
+                mostrarMsg("No se pudo crear la foto");
             }
         }catch (Exception e){
             mostrarMsg("Error al abrir la camara: "+ e.getMessage());
@@ -176,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
                 mostrarMsg("El usuario cancelo la toma de la foto");
             }
         }catch (Exception e){
-            mostrarMsg("Error añ obtener la foto de la camara");
+            mostrarMsg("Error al obtener la foto de la camara");
         }
     }
     private File crearImagenAmigo() throws Exception{
@@ -196,31 +193,28 @@ public class MainActivity extends AppCompatActivity {
             accion = parametros.getString("accion");
 
             if(accion.equals("modificar")){
-                JSONObject jsonObject = new JSONObject(parametros.getString("amigos")).getJSONObject("value");
+                JSONObject jsonObject = new JSONObject(parametros.getString("notas")).getJSONObject("value");
                 id = jsonObject.getString("_id");
                 rev = jsonObject.getString("_rev");
-                idAmigo = jsonObject.getString("idAmigo");
+                idNota = jsonObject.getString("idNota");
 
                 tempVal = findViewById(R.id.txtnombre);
                 tempVal.setText(jsonObject.getString("nombre"));
 
-                tempVal = findViewById(R.id.txtdireccion);
-                tempVal.setText(jsonObject.getString("direccion"));
+                tempVal = findViewById(R.id.txtTitulo);
+                tempVal.setText(jsonObject.getString("titulo"));
 
-                tempVal = findViewById(R.id.txtTelefono);
-                tempVal.setText(jsonObject.getString("telefono"));
+                tempVal = findViewById(R.id.txtEmocion);
+                tempVal.setText(jsonObject.getString("emocion"));
 
-                tempVal = findViewById(R.id.txtemail);
-                tempVal.setText(jsonObject.getString("email"));
-
-                tempVal = findViewById(R.id.txtdui);
-                tempVal.setText(jsonObject.getString("dui"));
+                tempVal = findViewById(R.id.txtContenido);
+                tempVal.setText(jsonObject.getString("contenido"));
 
                 urlCompletaFoto = jsonObject.getString("urlCompletaFoto");
                 Bitmap imageBitmap = BitmapFactory.decodeFile(urlCompletaFoto);
                 img.setImageBitmap(imageBitmap);
             }else{//nuevo registro
-                idAmigo = utls.generarIdUnico();
+                idNota = utls.generarIdUnico();
             }
         }catch (Exception e){
             mostrarMsg("Error al mostrar datos: "+ e.getMessage());

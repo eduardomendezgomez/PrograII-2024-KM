@@ -107,13 +107,12 @@ public class lista_amigos extends AppCompatActivity {
                         jsonObject.put("_id", cAmigos.getString(0));
                         jsonObject.put("_rev", cAmigos.getString(1));
                     }
-                    jsonObject.put("idAmigo", cAmigos.getString(2));
+                    jsonObject.put("idNota", cAmigos.getString(2));
                     jsonObject.put("nombre", cAmigos.getString(3));
-                    jsonObject.put("direccion", cAmigos.getString(4));
-                    jsonObject.put("telefono", cAmigos.getString(5));
-                    jsonObject.put("email", cAmigos.getString(6));
-                    jsonObject.put("dui", cAmigos.getString(7));
-                    jsonObject.put("urlCompletaFoto", cAmigos.getString(8));
+                    jsonObject.put("titulo", cAmigos.getString(4));
+                    jsonObject.put("emocion", cAmigos.getString(5));
+                    jsonObject.put("contenido", cAmigos.getString(6));
+                    jsonObject.put("urlCompletaFoto", cAmigos.getString(7));
                     jsonObject.put("actualizado", "si");
 
                     enviarDatosServidor objGuardarDatosServidor = new enviarDatosServidor(getApplicationContext());
@@ -125,12 +124,11 @@ public class lista_amigos extends AppCompatActivity {
                         String[] datos = new String[]{
                                 respuestaJSONObject.getString("id"),
                                 respuestaJSONObject.getString("rev"),
-                                jsonObject.getString("idAmigo"),
+                                jsonObject.getString("idNota"),
                                 jsonObject.getString("nombre"),
-                                jsonObject.getString("direccion"),
-                                jsonObject.getString("telefono"),
-                                jsonObject.getString("email"),
-                                jsonObject.getString("dui"),
+                                jsonObject.getString("titulo"),
+                                jsonObject.getString("emocion"),
+                                jsonObject.getString("contenido"),
                                 jsonObject.getString("urlCompletaFoto"),
                                 jsonObject.getString("actualizado")
                         };
@@ -150,7 +148,7 @@ public class lista_amigos extends AppCompatActivity {
     }
     private void obtenerDatosAmigosServidor(){
         try{
-            databaseReference = FirebaseDatabase.getInstance().getReference("amigos");
+            databaseReference = FirebaseDatabase.getInstance().getReference("notas");
             FirebaseMessaging.getInstance().getToken().addOnCompleteListener(tarea->{
                 if(!tarea.isSuccessful()) return;
                 miToken = tarea.getResult();
@@ -160,7 +158,7 @@ public class lista_amigos extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             try{
                                 if( snapshot.getChildrenCount()<=0 ){
-                                    mostrarMsg("No estas registrado.");
+                                    mostrarMsg("Agrega una nota para ver el chat");
                                     paramatros.putString("accion", "nuevo");
                                     abrirActividad(paramatros);
                                 }
@@ -185,12 +183,11 @@ public class lista_amigos extends AppCompatActivity {
                         for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                             amigos amigo = dataSnapshot.getValue(amigos.class);
                             jsonObject = new JSONObject();
-                            jsonObject.put("idAmigo", amigo.getIdAmigo());
+                            jsonObject.put("idNotas", amigo.getIdNota());
                             jsonObject.put("nombre", amigo.getNombre());
-                            jsonObject.put("direccion", amigo.getDireccion());
-                            jsonObject.put("telefono", amigo.getTelefono());
-                            jsonObject.put("email", amigo.getEmail());
-                            jsonObject.put("dui", amigo.getDui());
+                            jsonObject.put("titulo", amigo.getTitulo());
+                            jsonObject.put("emocion", amigo.getEmocion());
+                            jsonObject.put("contenido", amigo.getContenido());
                             jsonObject.put("urlCompletaFoto", amigo.getUrlFotoAmigo());
                             jsonObject.put("urlFotoAmigoFirestore", amigo.getUrlFotoAmigoFirestore());
                             jsonObject.put("to", amigo.getToken());
@@ -199,7 +196,7 @@ public class lista_amigos extends AppCompatActivity {
                         }
                         mostrarDatosAmigos();
                     }catch (Exception e){
-                        mostrarMsg("Error al obtener los amigos: "+ e.getMessage());
+                        mostrarMsg("Error al obtener los datos: "+ e.getMessage());
                     }
                 }
                 @Override
@@ -208,7 +205,7 @@ public class lista_amigos extends AppCompatActivity {
                 }
             });
         }catch (Exception e){
-            mostrarMsg("Error al obtener datos amigos del server: "+ e.getMessage());
+            mostrarMsg("Error al obtener datos notas del server: "+ e.getMessage());
         }
     }
     private void mostrarDatosAmigos(){
@@ -221,12 +218,11 @@ public class lista_amigos extends AppCompatActivity {
                 for (int i=0; i<datosJSON.length(); i++){
                     misDatosJSONObject = datosJSON.getJSONObject(i);
                     datosAmigos = new amigos(
-                            misDatosJSONObject.getString("idAmigo"),
+                            misDatosJSONObject.getString("idNota"),
                             misDatosJSONObject.getString("nombre"),
-                            misDatosJSONObject.getString("direccion"),
-                            misDatosJSONObject.getString("telefono"),
-                            misDatosJSONObject.getString("email"),
-                            misDatosJSONObject.getString("dui"),
+                            misDatosJSONObject.getString("titulo"),
+                            misDatosJSONObject.getString("emocion"),
+                            misDatosJSONObject.getString("contenido"),
                             misDatosJSONObject.getString("urlCompletaFoto"),
                             misDatosJSONObject.getString("urlFotoAmigoFirestore"),
                             misDatosJSONObject.getString("to")
@@ -285,13 +281,13 @@ public class lista_amigos extends AppCompatActivity {
     private void eliminarAmigo(){
         try {
             AlertDialog.Builder confirmar = new AlertDialog.Builder(lista_amigos.this);
-            confirmar.setTitle("Esta seguro de eliinar a: ");
+            confirmar.setTitle("Esta seguro de eliminar la nota: ");
             confirmar.setMessage(datosJSON.getJSONObject(posicion).getJSONObject("value").getString("nombre"));
             confirmar.setPositiveButton("SI", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     try {
-                        String respuesta = db.administrar_amigos("eliminar", new String[]{"", "", datosJSON.getJSONObject(posicion).getJSONObject("value").getString("idAmigo")});
+                        String respuesta = db.administrar_amigos("eliminar", new String[]{"", "", datosJSON.getJSONObject(posicion).getJSONObject("value").getString("idNota")});
                         if (respuesta.equals("ok")) {
                             mostrarMsg("Amigo eliminado con exito");
                             obtenerAmigos();
@@ -331,13 +327,11 @@ public class lista_amigos extends AppCompatActivity {
                     }else{
                         for (amigos amigo : alAmigosCopy){
                             String nombre = amigo.getNombre();
-                            String direccion = amigo.getDireccion();
-                            String tel = amigo.getTelefono();
-                            String email = amigo.getEmail();
+                            String titulo = amigo.getTitulo();
+                            String emocion = amigo.getEmocion();
                             if( nombre.trim().toLowerCase().contains(valor) ||
-                                    direccion.trim().toLowerCase().contains(valor) ||
-                                    tel.trim().contains(valor) ||
-                                    email.trim().toLowerCase().contains(valor)){
+                                    titulo.trim().toLowerCase().contains(valor) ||
+                                    emocion.trim().contains(valor)){
                                 alAmigos.add(amigo);
                             }
                         }
@@ -370,13 +364,12 @@ public class lista_amigos extends AppCompatActivity {
 
                     jsonObject.put("_id", cAmigos.getString(0));
                     jsonObject.put("_rev", cAmigos.getString(1));
-                    jsonObject.put("idAmigo", cAmigos.getString(2));
+                    jsonObject.put("idNota", cAmigos.getString(2));
                     jsonObject.put("nombre", cAmigos.getString(3));
-                    jsonObject.put("direccion", cAmigos.getString(4));
-                    jsonObject.put("telefono", cAmigos.getString(5));
-                    jsonObject.put("email", cAmigos.getString(6));
-                    jsonObject.put("dui", cAmigos.getString(7));
-                    jsonObject.put("urlCompletaFoto", cAmigos.getString(8));
+                    jsonObject.put("titulo", cAmigos.getString(4));
+                    jsonObject.put("emocion", cAmigos.getString(5));
+                    jsonObject.put("contenido", cAmigos.getString(6));
+                    jsonObject.put("urlCompletaFoto", cAmigos.getString(7));
                     jsonObjectValue.put("value", jsonObject);
 
                     datosJSON.put(jsonObjectValue);
