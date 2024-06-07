@@ -8,6 +8,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,6 +44,9 @@ import java.net.URL;
 public class chats extends AppCompatActivity {
     ImageView imgTemp;
     TextView tempVal;
+    SensorManager sensorManager;
+    Sensor sensor;
+    SensorEventListener sensorEventListener;
     String to="", from="", user="", msg = "", urlPhoto = "", urlPhotoFirestore = "";
     DatabaseReference databaseReference;
     private chatsArrayAdapter chatArrayAdapter;
@@ -254,4 +262,5 @@ public class chats extends AppCompatActivity {
     private void mostrarMsgToast(String msg){
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
     }
+
 }

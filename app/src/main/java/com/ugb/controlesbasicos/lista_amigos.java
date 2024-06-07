@@ -88,7 +88,17 @@ public class lista_amigos extends AppCompatActivity {
         buscarAmigos();
         mostrarChats();
     }
-    //inicio del sensor
+    //inicio sesor
+    @Override
+    protected void onResume() {
+        iniciar();
+        super.onResume();
+    }
+    @Override
+    protected void onPause() {
+        detener();
+        super.onPause();
+    }
     private void activarSensorLuz(){
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
@@ -102,7 +112,7 @@ public class lista_amigos extends AppCompatActivity {
                 double valor = sensorEvent.values[0];
                 tempVal.setText("Luz: "+ valor);
                 if( valor<=20 ){
-                    getWindow().getDecorView().setBackgroundColor(Color.parseColor("#a788ab"));
+                    getWindow().getDecorView().setBackgroundColor(Color.parseColor("#8f7193"));
                 } else if (valor<=50) {
                     getWindow().getDecorView().setBackgroundColor(Color.parseColor("#c0a0c3"));
                 }else{
@@ -121,7 +131,7 @@ public class lista_amigos extends AppCompatActivity {
     private void detener(){
         sensorManager.unregisterListener(sensorEventListener);
     }
-    //fin del sensor
+    //fin sensor
     private void mostrarChats(){
         lts.setOnItemClickListener((parent, view, position, id) -> {
             try{

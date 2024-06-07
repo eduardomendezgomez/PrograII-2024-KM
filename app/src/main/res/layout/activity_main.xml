@@ -73,7 +73,7 @@
         android:layout_below="@id/btnGuardarAgendaAmigos"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="32dp"
-        android:text="Nivel de Luz: ?"
+        android:text="Luz: ?"
         android:textColor="@color/black" />
 
 </RelativeLayout>

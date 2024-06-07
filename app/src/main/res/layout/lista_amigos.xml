@@ -34,6 +34,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="45dp"
-        android:text="Nivel de Luz: ?"
+        android:text="Luz: ?"
         android:textColor="@color/black" />
 </RelativeLayout>
