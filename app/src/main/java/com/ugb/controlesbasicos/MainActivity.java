@@ -7,6 +7,11 @@ import androidx.core.content.FileProvider;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -35,9 +40,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
+    TextView tempVal;
+    SensorManager sensorManager;
+    Sensor sensor;
+    SensorEventListener sensorEventListener;
     Button btn;
     FloatingActionButton fab;
-    TextView tempVal;
     String accion = "nuevo";
     String id="", rev="", idNota="";
     String urlCompletaFoto;
@@ -52,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        tempVal = findViewById(R.id.lblSensorLuz);
+        activarSensorLuz();
         di = new detectarInternet(getApplicationContext());
         utls = new utilidades();
         fab = findViewById(R.id.fabListarAmigos);
@@ -78,6 +88,50 @@ public class MainActivity extends AppCompatActivity {
         obtenerToken();
         mostrarDatosAmigos();
     }
+    @Override
+    protected void onResume() {
+        iniciar();
+        super.onResume();
+    }
+    @Override
+    protected void onPause() {
+        detener();
+        super.onPause();
+    }
+    //inicio del sensor
+    private void activarSensorLuz(){
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        if(sensor==null){
+            tempVal.setText("Tu telefono NO tiene sensor de Luz");
+            finish();
+        }
+        sensorEventListener = new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent sensorEvent) {
+                double valor = sensorEvent.values[0];
+                tempVal.setText("Luz: "+ valor);
+                if( valor<=20 ){
+                    getWindow().getDecorView().setBackgroundColor(Color.parseColor("#8f7193"));
+                } else if (valor<=50) {
+                    getWindow().getDecorView().setBackgroundColor(Color.parseColor("#c0a0c3"));
+                }else{
+                    getWindow().getDecorView().setBackgroundColor(Color.parseColor("#e5dde6"));
+                }
+            }
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int i) {
+
+            }
+        };
+    }
+    private void iniciar(){
+        sensorManager.registerListener(sensorEventListener, sensor, 2000*1000);
+    }
+    private void detener(){
+        sensorManager.unregisterListener(sensorEventListener);
+    }
+    //fin del sensor
     private void subirFotoFirestore(){
         mostrarMsg("Subiendo Foto...");
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
@@ -227,4 +281,5 @@ public class MainActivity extends AppCompatActivity {
         Intent abrirActividad = new Intent(getApplicationContext(), lista_amigos.class);
         startActivity(abrirActividad);
     }
+
 }

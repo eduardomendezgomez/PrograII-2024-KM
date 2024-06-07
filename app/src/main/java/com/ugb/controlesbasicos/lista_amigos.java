@@ -8,6 +8,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -37,6 +42,10 @@ import java.util.Locale;
 import kotlin.contracts.Returns;
 
 public class lista_amigos extends AppCompatActivity {
+    TextView tempVal;
+    SensorManager sensorManager;
+    Sensor sensor;
+    SensorEventListener sensorEventListener;
     Bundle paramatros = new Bundle();
     DB db;
     ListView lts;
@@ -56,6 +65,8 @@ public class lista_amigos extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lista_amigos);
+        tempVal = findViewById(R.id.lblSensorLuz);
+        activarSensorLuz();
         lts = findViewById(R.id.ltsAmigos);
         db = new DB(getApplicationContext(),"", null, 1);
         btn = findViewById(R.id.fabAgregarAmigos);
@@ -77,6 +88,40 @@ public class lista_amigos extends AppCompatActivity {
         buscarAmigos();
         mostrarChats();
     }
+    //inicio del sensor
+    private void activarSensorLuz(){
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        if(sensor==null){
+            tempVal.setText("Tu telefono NO tiene sensor de Luz");
+            finish();
+        }
+        sensorEventListener = new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent sensorEvent) {
+                double valor = sensorEvent.values[0];
+                tempVal.setText("Luz: "+ valor);
+                if( valor<=20 ){
+                    getWindow().getDecorView().setBackgroundColor(Color.parseColor("#a788ab"));
+                } else if (valor<=50) {
+                    getWindow().getDecorView().setBackgroundColor(Color.parseColor("#c0a0c3"));
+                }else{
+                    getWindow().getDecorView().setBackgroundColor(Color.parseColor("#e5dde6"));
+                }
+            }
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int i) {
+
+            }
+        };
+    }
+    private void iniciar(){
+        sensorManager.registerListener(sensorEventListener, sensor, 2000*1000);
+    }
+    private void detener(){
+        sensorManager.unregisterListener(sensorEventListener);
+    }
+    //fin del sensor
     private void mostrarChats(){
         lts.setOnItemClickListener((parent, view, position, id) -> {
             try{
@@ -387,4 +432,5 @@ public class lista_amigos extends AppCompatActivity {
     private void mostrarMsg(String msg){
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
+
 }
