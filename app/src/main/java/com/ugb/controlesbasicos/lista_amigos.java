@@ -26,6 +26,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,7 +55,7 @@ public class lista_amigos extends AppCompatActivity {
     final ArrayList<amigos> alAmigos = new ArrayList<amigos>();
     final ArrayList<amigos> alAmigosCopy = new ArrayList<amigos>();
     amigos datosAmigos;
-    FloatingActionButton btn;
+    FloatingActionButton btn,btn_logout;
     JSONArray datosJSON; //para los datos que vienen del servidor.
     JSONObject jsonObject;
     obtenerDatosServidor datosServidor;
@@ -61,15 +63,36 @@ public class lista_amigos extends AppCompatActivity {
     int posicion = 0;
     DatabaseReference databaseReference;
     String miToken="";
+    FirebaseAuth auth;
+    FirebaseUser user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lista_amigos);
         tempVal = findViewById(R.id.lblSensorLuz);
         activarSensorLuz();
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
         lts = findViewById(R.id.ltsAmigos);
         db = new DB(getApplicationContext(),"", null, 1);
         btn = findViewById(R.id.fabAgregarAmigos);
+        btn_logout = findViewById(R.id.fabCerrarSesion);
+
+        if(user == null){
+            Intent intent = new Intent(getApplicationContext(), login.class);
+            startActivity(intent);
+            finish();
+        }
+        btn_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getApplicationContext(), login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
